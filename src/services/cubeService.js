@@ -1,8 +1,28 @@
 const uniqid = require('uniqid');
-const fs = require('fs');
 
-const data = fs.readFileSync('src/config/database.json', 'utf8');
-const cubes = JSON.parse(data);
+const cubes = [
+    {
+        id: '1kows4je8gln4ofpko',
+        name: 'cubcho',
+        description: 'bebe kub',
+        imgUrl: 'https://m.media-amazon.com/images/I/61fB-s4DPVS.jpg',
+        difficultyLevel: 1
+      },
+      {
+        id: '1kows4je8gln4og3nn',
+        name: 'Ивет',
+        description: 'shes a cube also',
+        imgUrl: 'https://mathworld.wolfram.com/images/eps-svg/Cube_700.svg',
+        difficultyLevel: 5
+      },
+      {
+        id: '1kows4je8gln4ogn2i',
+        name: 'zzz',
+        description: 'mmmboy',
+        imgUrl: 'https://cdn1.byjus.com/wp-content/uploads/2021/03/Cube-net.png',
+        difficultyLevel: 5
+      }
+];
 
 exports.create = (cubeData) => {
     const newCube = {
@@ -10,20 +30,12 @@ exports.create = (cubeData) => {
         ...cubeData
     };
 
-    cubes.push(newCube);
-
-    fs.writeFile('src/config/database.json',
-    JSON.stringify(cubes), (err) => {
-      if(err) {
-        console.error('Error while writing in the database.json file.', err);
-      }
-    })
-    return newCube;
+    cubes.push(newCube)
+    return newCube
 }
 
 exports.getAll = (search, from, to) => {
-  const data = fs.readFileSync('src/config/database.json', 'utf-8');
-  let filterCubes = JSON.parse(data);
+  let filterCubes = [...cubes];
   if(search) {
     filterCubes = filterCubes.filter((cube) => cube.name.toLowerCase().includes(search));
   }
