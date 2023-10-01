@@ -1,9 +1,8 @@
 const router = require("express").Router();
-const { log } = require("console");
 const cubeService = require("../services/cubeService")
 
 router.get("/create", (req, res) => {
-    res.render("create");
+    res.render("cube/create");
 });
 
 router.post('/create', async (req, res) => {
@@ -21,14 +20,13 @@ router.post('/create', async (req, res) => {
 router.get('/:cubeId/details', async (req, res) => {
     const { cubeId } = req.params;
     const cube = await cubeService.getSingleCube(cubeId).lean(); //mongodb връща document object, той има различни функционалности. За това му слагаме lean()
-    console.log(cube)
 
     if(!cube) {
         res.redirect('/404');
         return
     }
 
-    res.render('details', { ...cube });
+    res.render('cube/details', { ...cube });
 });
 
 module.exports = router;
