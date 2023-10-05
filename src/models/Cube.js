@@ -6,13 +6,13 @@ const cubeSchema = new mongoose.Schema({
     imageUrl: String,
     difficultyLevel: Number,
 
-    accessories:[
+    accessories: [
         {
-        type: mongoose.Types.ObjectId,//type from mongo
-        ref: "Accessory" //the name of the model
-    },
-],
+            type: mongoose.Types.ObjectId,//type from mongo
+            ref: "Accessory" //the name of the model
+        }
+    ],
 });
 
 const Cube = mongoose.model('Cube', cubeSchema);
-module.exports = Cube
+module.exports = Cube;

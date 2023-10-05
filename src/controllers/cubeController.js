@@ -30,6 +30,7 @@ router.get('/:cubeId/details', async (req, res) => {
     res.render('cube/details', { ...cube });
 });
 
+//accessory attachment related
 router.get('/:cubeId/attach-accessory', async (req, res) => {
     const { cubeId } = req.params;
     const cube = await cubeService.getSingleCube(cubeId).lean();
@@ -37,6 +38,15 @@ router.get('/:cubeId/attach-accessory', async (req, res) => {
     const hasAccesories = accessories.length > 0;
 
     res.render('accessory/attach', { cube, accessories, hasAccesories });
+});
+
+router.post('/:cubeId/attach-accessory', async (req, res) => {
+    const { cubeId } = req.params;
+    const { accessory: accessoryId } = req.body;
+
+    await cubeService.attachAccessory(cubeId, accessoryId);
+
+    res.redirect(`/cubes/${cubeId}/details`);
 })
 
 
