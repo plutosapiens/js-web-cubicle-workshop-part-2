@@ -6,6 +6,6 @@ const accessorySchema = mongoose.Schema({
     description: String,
 });
 
-const Accessory = mongoose.model('Accessorry', accessorySchema);
+const Accessory = mongoose.model('Accessory', accessorySchema);
 
 module.exports = Accessory;

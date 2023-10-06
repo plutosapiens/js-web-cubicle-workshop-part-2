@@ -27,17 +27,19 @@ router.get('/:cubeId/details', async (req, res) => {
         return
     }
 
-    res.render('cube/details', { ...cube });
+    const hasAccessories = cube.accessories?.length > 0;
+    res.render('cube/details', { ...cube, hasAccessories });
 });
 
 //accessory attachment related
 router.get('/:cubeId/attach-accessory', async (req, res) => {
     const { cubeId } = req.params;
     const cube = await cubeService.getSingleCube(cubeId).lean();
+    
     const accessories = await accessoryService.getAll().lean();
-    const hasAccesories = accessories.length > 0;
+    const hasAccessories = accessories.length > 0;
 
-    res.render('accessory/attach', { cube, accessories, hasAccesories });
+    res.render('accessory/attach', { cube, accessories, hasAccessories: hasAccessories });
 });
 
 router.post('/:cubeId/attach-accessory', async (req, res) => {
